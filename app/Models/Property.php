@@ -6,11 +6,12 @@ use App\Observers\PropertyObserver;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Property extends Model
 {
     use HasFactory;
-
+    use HasEagerLimit;
     protected $fillable = [
         'owner_id',
         'name',
@@ -45,5 +46,10 @@ class Property extends Model
                 . ', ' . $this->address_postcode
                 . ', ' . $this->city->name
         );
+    }
+
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class);
     }
 }

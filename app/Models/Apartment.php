@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Apartment extends Model
 {
     use HasFactory;
+    use HasEagerLimit;
 
     protected $fillable = [
         'property_id',
@@ -59,5 +61,10 @@ class Apartment extends Model
         return new Attribute(
             get: fn () => $bedsList
         );
+    }
+
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class);
     }
 }

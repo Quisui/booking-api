@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Public;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,7 +40,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::get(
-    'search',
-    \App\Http\Controllers\Public\PropertySearchController::class
-);
+Route::get('search', Public\PropertySearchController::class);
+Route::get('properties/{property}', Public\PropertyController::class);
+Route::get('apartments/{apartment}', Public\ApartmentController::class);
