@@ -44,3 +44,12 @@ We're using this package that handles everything as polymorphic relations with t
 Property owners must define the order in which photos appear in the app or on the website. 
 Media table are going to have the order field
 
+# pricing
+Pricing per calendar days. Typically, some resorts would cost more in July than in January
+CHeck Model Apartment > *calculatePriceForDates*
+## Test to check:
+*test_property_search_filters_by_price*
+*class ApartmentPriceTest*
+*ApartmentAvailableRule*
+
+# Rating system

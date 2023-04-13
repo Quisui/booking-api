@@ -21,6 +21,7 @@ class ApartmentSearchResource extends JsonResource
             'beds_list' => $this->beds_list,
             'bathrooms' => $this->bathrooms,
             'facilities' => $this->whenLoaded('facilities', FacilityResource::collection($this->facilities)),
+            'price' => $this->calculatePriceForDates($request->start_date, $request->end_date)
         ];
     }
 }
