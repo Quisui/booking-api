@@ -23,6 +23,11 @@ class Booking extends Model
         'review_comment',
     ];
 
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
     public function apartment()
     {
         return $this->belongsTo(Apartment::class);
