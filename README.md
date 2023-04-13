@@ -1,4 +1,10 @@
 # Booking API
+This api was based on this site [booking](https://www.booking.com/index.es.html?aid=376374;label=esrow-OtlvhU2CXhSVxek50Z_17wS410489931081:pl:ta:p1:p22.563.000:ac:ap:neg:fi:tikwd-65526620:lp9076411:li:dec:dm:ppccp=UmFuZG9tSVYkc2RlIyh9YcUSe6BbHz0Ad_yDShFFSHQ;ws=&gad=1&gclid=CjwKCAjw0N6hBhAUEiwAXab-TeobQcY-JSo1Q4rqcuq_K-zLBZeI34uuIyiSlFM9NsZZO-uzLWOZzhoCzeUQAvD_BwE)
+
+# DB SCHEMA
+<img width="448" alt="image" src="https://user-images.githubusercontent.com/22399803/231846799-41d7d6c9-6210-4bbd-b345-894a0113dcc7.png">
+<img width="477" alt="image" src="https://user-images.githubusercontent.com/22399803/231846846-aa53f664-c4bc-424b-b4aa-8f4b1e60792e.png">
+
 
 # Users
 
