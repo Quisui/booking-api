@@ -30,13 +30,19 @@ Route::middleware('auth:sanctum')->group(function () {
             'properties',
             [\App\Http\Controllers\Owner\PropertyController::class, 'store']
         );
+
+        Route::post(
+            'properties/{property}/photos',
+            [\App\Http\Controllers\Owner\PropertyPhotoController::class, 'store']
+        );
+        Route::post(
+            'properties/{property}/photos/{photo}/reorder/{newPosition}',
+            [\App\Http\Controllers\Owner\PropertyPhotoController::class, 'reorder']
+        );
     });
 
     Route::prefix('user')->group(function () {
-        Route::get(
-            'bookings',
-            [\App\Http\Controllers\User\BookingController::class, 'index']
-        );
+        Route::resource('bookings', \App\Http\Controllers\User\BookingController::class)->withTrashed();
     });
 });
 

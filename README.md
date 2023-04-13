@@ -35,3 +35,21 @@ That take(1) actually means not "one apartment per property" but rather "one apa
 
 See trait on Property Model
     use HasEagerLimit;
+
+
+# Media handling
+https://github.com/spatie/laravel-medialibrary
+We're using this package that handles everything as polymorphic relations with the images.
+
+Property owners must define the order in which photos appear in the app or on the website. 
+Media table are going to have the order field
+
+# pricing
+Pricing per calendar days. Typically, some resorts would cost more in July than in January
+CHeck Model Apartment > *calculatePriceForDates*
+## Test to check:
+*test_property_search_filters_by_price*
+*class ApartmentPriceTest*
+*ApartmentAvailableRule*
+
+# Rating system
