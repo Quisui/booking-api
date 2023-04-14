@@ -59,3 +59,6 @@ CHeck Model Apartment > *calculatePriceForDates*
 *ApartmentAvailableRule*
 
 # Rating system
+
+Every booking may have a rating (1-10) and a text-form review comment
+This rating is attached to the booking for the apartment, but in the search result we need to calculate the average for all the apartments of the property
