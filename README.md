@@ -62,3 +62,8 @@ CHeck Model Apartment > *calculatePriceForDates*
 
 Every booking may have a rating (1-10) and a text-form review comment
 This rating is attached to the booking for the apartment, but in the search result we need to calculate the average for all the apartments of the property
+
+# Performance seeders
+Check: PerformanceTestingSeeder or try to run it with: 
+*php artisan migrate:fresh --seed --seeder=PerformanceTestingSeeder*
+

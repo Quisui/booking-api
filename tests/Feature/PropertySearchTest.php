@@ -474,8 +474,8 @@ class PropertySearchTest extends TestCase
 
         $response = $this->getJson('/api/search?city=' . $cityId . '&adults=2&children=1');
         $response->assertStatus(200);
-        $response->assertJsonCount(2, 'properties');
-        $this->assertEquals(8, $response->json('properties')[0]['avg_rating']);
-        $this->assertEquals(7, $response->json('properties')[1]['avg_rating']);
+        $response->assertJsonCount(2, 'properties.data');
+        $this->assertEquals(7, $response->json('properties.data')[0]['avg_rating']);
+        $this->assertEquals(8, $response->json('properties.data')[1]['avg_rating']);
     }
 }
