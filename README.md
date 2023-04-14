@@ -1,66 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Booking API
+This api was based on this site [booking](https://www.booking.com/index.es.html?aid=376374;label=esrow-OtlvhU2CXhSVxek50Z_17wS410489931081:pl:ta:p1:p22.563.000:ac:ap:neg:fi:tikwd-65526620:lp9076411:li:dec:dm:ppccp=UmFuZG9tSVYkc2RlIyh9YcUSe6BbHz0Ad_yDShFFSHQ;ws=&gad=1&gclid=CjwKCAjw0N6hBhAUEiwAXab-TeobQcY-JSo1Q4rqcuq_K-zLBZeI34uuIyiSlFM9NsZZO-uzLWOZzhoCzeUQAvD_BwE)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# DB SCHEMA
+<img width="448" alt="image" src="https://user-images.githubusercontent.com/22399803/231846799-41d7d6c9-6210-4bbd-b345-894a0113dcc7.png">
+<img width="477" alt="image" src="https://user-images.githubusercontent.com/22399803/231846846-aa53f664-c4bc-424b-b4aa-8f4b1e60792e.png">
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Users
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+User: One Role or Multiple Roles?
+Typically, there are two layers of managing permissions:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Admin adds the permissions and then specifies which roles have certain permissions
+For users, the admin/system assigns the ROLES to them, which in itself includes the permissions
+In other words, we don't assign permissions to the users, we assign only the roles.
 
-## Learning Laravel
+Using sanctum
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# properties-apartments
+We will use a package called GeocoderLaravel that allows you to easily integrate Google Maps API in your Laravel project.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Observer that gets the gps automatically if there's no geo location sent
+check PropertyObserver
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Search Filters are in PropertySearchController
 
-## Laravel Sponsors
+The raw SQL query of $condition in the geoobject is taken from this [article](https://inovector.com/blog/get-locations-nearest-the-user-location-with-mysql-php-in-laravel): in our case, we're looking for properties within 10 km distance of our geoobject.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+Check tests to review documentation > this is the propertySearchTest
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+# Facilities
+user clicking on the property to choose the apartment. Inside the property view, we need to show the full list of available apartments, with their facilities
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Check PropertyShowTest && ApartmentShowTest for more detailed info
 
-## Code of Conduct
+Using staudenmeir/eloquent-eager-limit to load eager limit, why?
+That take(1) actually means not "one apartment per property" but rather "one apartment in total"! So, if there are multiple properties returned and each of them has apartments, it will NOT return the apartments for the second, third, and other properties.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+See trait on Property Model
+    use HasEagerLimit;
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Media handling
+https://github.com/spatie/laravel-medialibrary
+We're using this package that handles everything as polymorphic relations with the images.
 
-## License
+Property owners must define the order in which photos appear in the app or on the website. 
+Media table are going to have the order field
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# pricing
+Pricing per calendar days. Typically, some resorts would cost more in July than in January
+CHeck Model Apartment > *calculatePriceForDates*
+## Test to check:
+*test_property_search_filters_by_price*
+*class ApartmentPriceTest*
+*ApartmentAvailableRule*
+
+# Rating system
+
+Every booking may have a rating (1-10) and a text-form review comment
+This rating is attached to the booking for the apartment, but in the search result we need to calculate the average for all the apartments of the property
+
+# Performance seeders
+Check: PerformanceTestingSeeder or try to run it with: 
+*php artisan migrate:fresh --seed --seeder=PerformanceTestingSeeder*
+
